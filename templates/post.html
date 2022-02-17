@@ -34,8 +34,18 @@
 
 
 <!--           Comments Area -->
+          {% if current_user.is_authenticated: %}
+          <div class="col-lg-8 col-md-10 mx-auto">
+            {{ ckeditor.load() }}
+            {{ ckeditor.config(name='body') }}
+            {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+          </div>
+          {% else %}
+          <div class="clearfix d-grid col-6 mx-auto text-center">
+            <a class="btn btn-primary" href="{{url_for('register')}}">Register to Comment</a>
+          </div>
+          {% endif %}
           <div class="col-lg-8 col-md-10 mx-auto comment">
-            <p>Comments</p>
               <ul class="commentList">
                 {% for comment in comments: %}
                 <li>
@@ -50,17 +60,7 @@
                 {% endfor %}
               </ul>
             </div>
-          {% if current_user.is_authenticated: %}
-          <div class="col-lg-8 col-md-10 mx-auto">
-            {{ ckeditor.load() }}
-            {{ ckeditor.config(name='body') }}
-            {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
-          </div>
-          {% else %}
-          <div class="clearfix d-grid col-6 mx-auto text-center">
-            <a class="btn btn-primary" href="{{url_for('register')}}">Register to Comment</a>
-          </div>
-          {% endif %}
+
 
           </div>
       </div>
